@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+    h1 Login
+    form(action="" method="POST" id="login-form")
+        label(for="email") Email
+        input(type="email" name="email" id="email" required)
+        label(for="password") Password 
+        input(type="password" name="password" id="password" required)
+        input(type="submit" name="submit" id="submit" value="Login")
+
+    div#auth-section
+
+    script(src="/scripts/login.js")
