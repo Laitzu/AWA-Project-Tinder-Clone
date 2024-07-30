@@ -1,110 +1,98 @@
+// Routing for registering and login
+
+// Environment variables
 require("dotenv").config();
 
 var express = require('express');
 var router = express.Router();
-const bcrypt = require("bcryptjs");
-const mongoose = require("mongoose");
-const {body, validationResult} = require("express-validator");
-const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const passport = require("passport");
+
+// Better form handling
 const multer = require("multer")
 const storage = multer.memoryStorage();
 const upload = multer({storage});
 
-// Test email         asd.asdasd@asd.asd
-// Test password      Aas..4aadsj435ja
+// Get User model
+const User = require("../models/User");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-/* GET users listing. */
-router.get('/list', async (req, res, next) => {
-
-  const users = await User.find({});
-  res.render("users", {users});
-});
+// Get bcrypt for password encryption
+const bcrypt = require("bcryptjs");
 
 
-router.get('/register.html', (req, res, next) => {
-  res.render("register");
-});
 
-router.post('/user/register', upload.none(), [
-  body('email').isEmail(),
-  body('password').isLength({min: 8})
-    .matches(/[a-z]/)
-    .matches(/[A-Z]/)
-    .matches(/[0-9]/)
-    .matches(/[\W_]/),
-  ], async (req, res, next) => {
+// Registering POST
+router.post('/register', async function(req, res, next) {
 
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-      return res.status(400).json({message: "Password is not strong enough"});
-    }
-
+  // Check if email is already in use
   const data = await User.findOne({email: req.body.email});
-  console.log(data);
-    if(data) {
-      return res.status(403).json({message: "Email already in use"});
-    } else {
-      let salt = await bcrypt.genSalt(10);
-      let hash = await bcrypt.hash(req.body.password, salt);
+  if(data) {
+    // If email is found in database
+    return res.send("Email already in use");
+  } else {
+    // Else if email is not in use
+    // Encrypt password
+    let salt = await bcrypt.genSalt(10);
+    let hash = await bcrypt.hash(req.body.password, salt);
 
-      new User({
-        email: req.body.email,
-        password: hash
-      }).save()
-      //If registration successful redirect to login page
-      return res.json({ redirect: "/login.html" });
-    }
-  })
+    console.log(hash);
+    // Save new user into database
 
+    // Get current date
+    const d = new Date();
+    // Hacky fix to get time in Finnish time
+    d.setTime(d.getTime() + (3*60*60*1000));
 
-router.get('/login.html', (req, res, next) => {
-  res.render("login");
+    new User({
+      firstName: req.body.firstname,
+      lastName: req.body.lastname,
+      email: req.body.email,
+      password: hash,
+      registerDate: d.toISOString(),
+      bio: "No bio set yet"
+    }).save()
+  }
+
+  res.redirect("/login");
 });
 
-router.post('/user/login', upload.none(), async (req, res, next) => {
+// Login POST
+router.post('/login', upload.none(), async (req, res) => {
+  const { email, password } = req.body;
 
-  const user = await User.findOne({email: req.body.email});
-
-  if(!user) {
-    return res.status(403).json({message: "Invalid credentials"});
-  } else {
-    await bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-      if(err) throw err;
-      if(isMatch) {
-
-        const jwtPayload = {
-          id: user._id,
-          email: user.email,
-        }
-        jwt.sign(
-          jwtPayload,
-          process.env.SECRET,
-          {
-            expiresIn: 300
-          },
-          (err, token) => {
-            // If login successful redirect to index page
-            res.json({token: token});
-          }
-        )
-      } else {
-        return res.status(403).json({message: "Invalid credentials"});
+  try {
+      const user = await User.findOne({ email });
+      if (!user) {
+          return res.status(401).send('Invalid credentials');
       }
-    });
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(401).send('Invalid credentials');
+      }
+
+      // Set user info in session data
+      req.session.userId = user._id;
+      req.session.email = user.email;
+      req.session.firstName = user.firstName;
+      req.session.lastName = user.lastName;
+      res.redirect('/userhome'); // Redirect to user homepage after successful login
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
   }
 });
 
-router.get('/private', passport.authenticate('jwt', { session: false }), (req, res) => {
-  console.log("Authenticated User:", req.user);
-  res.status(200).send({email: req.user.email});
+
+// Logout handler
+router.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+      if (err) {
+          return console.log(err);
+      }
+      res.redirect('/login');
+  });
 });
+
+
 
 
 

@@ -1,0 +1,53 @@
+html
+    head
+        title Tinder Clone
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet" href="./stylesheets/style.css")
+    body
+        nav
+            div.nav-wrapper
+                a.brand-logo(href="/userhome") Tinder Clone
+                ul.right
+                    li 
+                        a(href="/userhome") Home
+                    li
+                        a(href="#" id="profile") Profile
+                    li
+                        a(href="/logout") Logout
+        .container
+            block content
+
+            .section.hide(id="profile-section")
+                .row
+                    .col.s12
+                        .card.hide(id="profile-card")
+                            .card-content
+                                span.card-title(id="name")
+                                p(id="register-date")
+                                p(id="bio")
+                a(href="/userhome") Back to home
+
+            .row.center-align
+                button#start-browsing.btn-large.waves-effect.waves-light.blue Start browsing profiles
+
+            #browsing.hide
+                .card
+                    .card-content.center-align
+                        span.card-title Browse Profiles
+                        h3#random-profile-name
+                        p#random-profile-bio
+                        div.button-row
+                            a.btn-floating.btn-large.waves-effect.waves-light.green(id="like-button")
+                                i.material-icons favorite
+                            a.btn-floating.btn-large.waves-effect.waves-light.red(id="dislike-button")
+                                i.material-icons thumb_down
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
+        script.
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.sidenav');
+                var instances = M.Sidenav.init(elems);
+            });
+        script(src="/javascripts/userhome.js")

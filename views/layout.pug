@@ -1,13 +1,22 @@
-doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title Tinder Clone
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
   body
-    header
-      ul
-          li: a(href="/") Home 
-          li: a(href="/list") List of users
-          li: a(href="/register.html") Register 
-          li: a(href="/login.html") Login
-    block content
+    nav
+      div.nav-wrapper
+        a.brand-logo(href="/") Tinder Clone
+        ul.right
+          li
+            a(href="/register") Register
+          li
+            a(href="/login") Login
+    .container
+      block content
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
+    script.
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+      });

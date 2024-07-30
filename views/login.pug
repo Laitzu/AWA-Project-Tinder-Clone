@@ -1,14 +1,19 @@
-extends layout 
+extends layout
 
-block content 
-    h1 Login
-    form(action="" method="POST" id="login-form")
-        label(for="email") Email
-        input(type="email" name="email" id="email" required)
-        label(for="password") Password 
-        input(type="password" name="password" id="password" required)
-        input(type="submit" name="submit" id="submit" value="Login")
-
+block content
+    h2 Login
+    p Please login to be able to use all of our features
+    form(id="form-data")
+        .input-field
+            input(type="email" name="email" id="email" required)
+            label(for="email") Email
+        .input-field
+            input(type="password" name="password" id="password" required)
+            label(for="password") Password
+        button.btn(type="submit" id="submit") Login
+    
     div#auth-section
 
-    script(src="/scripts/login.js")
+
+
+    script(src="/javascripts/login.js")
