@@ -8,6 +8,7 @@
 // npm install mongoose faker
 // Make sure this file is in the repo's highest level e.g. with app.js package.json etc.
 // Choose how many users you want by changing the value at the bottom of the file inside generateUsers(*Value*)
+// REMEMBER TO CHANGE THE DATABASE ADDRESS TO MATCH THE ONE IN app.js!!!!!!
 // Run the following command:
 // node generateUsers.js
 // Wait a few seconds, it takes some time.
