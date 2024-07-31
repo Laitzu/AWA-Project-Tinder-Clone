@@ -48,6 +48,7 @@ router.get('/profile/:id', isAuthenticated, async (req, res, next) => {
 
 // Get a random users profile
 router.get('/random', isAuthenticated, async (req, res, next) => {
+
   let user = await User.findOne({_id: req.session.userId});
   while(true) {
     // The following user filtering and choosing code has been provided by ChatGPT 4o
@@ -67,12 +68,6 @@ router.get('/random', isAuthenticated, async (req, res, next) => {
     const randomIndex = Math.floor(Math.random() * potentialUsers.length);
     const otherUser = potentialUsers[randomIndex];
 
-    // TODO:
-    // ADD PROFILE EDITING
-    // ADD CHATTING WHEN LIKES MATCH (DISPLAY ALL LIKE PAIRS IN CHAT ALREADY AND
-    // IF NO MESSAGES YET DISPLAY SOMETHING LIKE "START CHATTING YOU MATCHED")
-    // AFTER THIS THE MANDATORY REQUIREMENTS ARE DONE!!!!!!!!!!
-
     // If likes or dislikes are not initialized yet
     user.likes = user.likes || [];
     user.dislikes = user.dislikes || [];
@@ -85,7 +80,6 @@ router.get('/random', isAuthenticated, async (req, res, next) => {
 router.post('/like/:id', isAuthenticated, async (req, res, next) => {
 
   try {
-
     // Get ids of liker and likee
     const userId = req.session.userId;
     const likedUserId = req.params.id;
@@ -108,13 +102,15 @@ router.post('/like/:id', isAuthenticated, async (req, res, next) => {
       await user.save();
       await likedUser.save();
 
+      res.json({match: true, matchedUser: likedUser});
+
     } else {
       // If no match add the like to the users likes nevertheless
       user.likes.push(likedUserId);
       await user.save();
-    }
 
-    res.json({message: "Like registered"});
+      res.json({message: "Like registered"});
+    }
 
   } catch (err) {
     res.status(500).json({message: "Server error occurred"});

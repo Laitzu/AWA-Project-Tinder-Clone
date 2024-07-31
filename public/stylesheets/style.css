@@ -5,11 +5,17 @@ body {
 
 a {
   color: #00B7FF;
+  cursor: pointer;
 }
 
 .button-row a {
   margin: 0 10px;
   margin-top: 30px;
+}
+
+button {
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .row {
@@ -36,6 +42,7 @@ p {
   padding: 5px 5px;
   margin-top: 10px;
   width: fit-content;
+  max-width: 250px;
 }
 
 .my-message {
@@ -50,20 +57,18 @@ p {
   margin-right: auto;
 }
 
-
-
 #matches-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
+  align-self: flex;
   flex-direction: column;
   gap: 10px; /* Space between match items */
 }
 
 /* Styling for individual match items */
 .match {
-  display: flex;
+  align-self:  flex;
   align-items: center;
   padding: 10px 15px;
   border-radius: 8px;
@@ -80,4 +85,101 @@ p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
 }
 
+@media only screen and (max-width: 600px) {
+  html, body {
+      font-size: 14px; /* Reduce base font size */
+  }
 
+  .nav-wrapper .brand-logo {
+      font-size: 20px; /* Adjust brand logo size */
+      padding-left: 5px;
+      left: 0;
+      right: auto;
+      transform: none;
+      visibility: hidden;
+  }
+
+  .nav-wrapper ul.right li a {
+      font-size: 14px; /* Adjust navigation link font size */
+      padding-right: 10px;
+      flex-wrap: wrap;
+  }
+
+  .container {
+      padding: 0 10px; /* Reduce padding in container */
+  }
+
+  .card-title {
+      font-size: 18px; /* Adjust card title font size */
+  }
+
+  .card-content p, .card-content span {
+      font-size: 14px; /* Adjust content font size */
+  }
+
+  .input-field input, .input-field textarea {
+      font-size: 14px; /* Adjust input fields font size */
+  }
+
+  .btn {
+      padding: 0 10px; /* Adjust button padding */
+      font-size: 14px; /* Adjust button font size */
+  }
+
+  .btn-large {
+      padding: 0 15px; /* Adjust large button padding */
+      font-size: 16px; /* Adjust large button font size */
+  }
+
+  .button-row a.btn-floating {
+      margin: 5px; /* Add margin between floating buttons */
+      height: 40px; /* Reduce size of floating buttons */
+      width: 40px;
+      line-height: 40px;
+  }
+
+  #match-modal {
+    min-height: 300px; /* Ensure the modal is tall enough */
+    align-self: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+  .modal-footer .btn {
+    width: 80%; /* Set a fixed width suitable for smaller screens */
+    margin: 5px auto; /* Center the buttons with auto margins */
+    display: block; /* Ensure buttons are block elements for full width */
+  }
+
+  .chat-history {
+      height: calc(100vh - 250px); /* Adjust chat history height */
+      overflow-y: auto; /* Enable scrolling */
+  }
+
+  #chat-message {
+      font-size: 14px; /* Adjust chat message input font size */
+  }
+
+  #message-filter {
+      font-size: 14px; /* Adjust filter input font size */
+  }
+
+  #matches-list li {
+      padding: 5px 10px; /* Adjust padding for match list items */
+      font-size: 14px; /* Adjust match list items font size */
+  }
+
+  .btn.waves-effect {
+      margin-bottom: 10px; /* Add margin to buttons */
+  }
+}
+
+.swipe-right {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
+}
+
+.swipe-left {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+}

@@ -63,16 +63,31 @@ html
             .section(id="matches-section")
                 h5 Your Matches
                 ul#matches-list
-                    // Matches will be populated here
+
             .section.hide(id="chat-section")
                 h5#chat-with Chat with: 
+                input(type="text" id="message-filter" placeholder="Filter messages")
+                button.btn.waves-effect.waves-light.red(id="filter-button") Filter
+                button.btn.waves-effect.waves-light.red(id="clear-filter-button") Clear filters
+
                 div#chat-history.chat-history
-                    // Chat messages will be populated here
                 form(id="send-message-form")
-                    input#chat-message(type="text" placeholder="Type a message...")
+                    input#chat-message(type="text" placeholder="Type a message")
                     button.btn.waves-effect.waves-light(type="submit") Send
 
+
+            // Modal template from ChatGPT
+            #match-modal.modal
+                .modal-content
+                    h4 It's a Match!
+                    p#match-message
+                .modal-footer
+                    button#start-chat.modal-close.waves-effect.waves-lighten-1.btn.blue Start Chat
+                    button#continue-browsing.modal-close.waves-effect.waves-lighten-1.btn.red Continue Browsing
+
+
         script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js")
         script.
             document.addEventListener('DOMContentLoaded', function() {
                 var elems = document.querySelectorAll('.sidenav');

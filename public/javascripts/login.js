@@ -25,6 +25,7 @@ async function onSubmit(event) {
     })
     if (res.redirected) {
         // If redirected, manually update the window location because fetch doesn't support automatic redirects :) 
+        // this took me way too long to realize
         window.location.href = res.url;
     } else {
         // If no redirect, display message on page under login stuff
