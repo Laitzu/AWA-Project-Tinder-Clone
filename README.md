@@ -102,4 +102,4 @@ As this project was done for a school course, here is the list of features I cla
 ### Additional points
 - Providing scripts to generate users into the database - 1-2p
 
- ## Total - 35 points
+ ## Total - 35 (+ 1-2) points
