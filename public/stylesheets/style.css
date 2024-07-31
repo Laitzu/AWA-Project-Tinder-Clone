@@ -28,8 +28,15 @@ p {
 }
 
 
+/* Most of the stuff past this point is made my ChatGPT 4o
+    with moderate modifications done to the code by yours truly
+    It is safe to say it was not just an easy copy paste job
+    And some obsolete sections might still exist which currently serve
+    no purpose
+    */
+
 #chat-history {
-  height: 250px; /* Adjust max height here */
+  height: 250px;
   overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;
@@ -63,35 +70,38 @@ p {
   margin: 0;
   align-self: flex;
   flex-direction: column;
-  gap: 10px; /* Space between match items */
+  gap: 10px;
 }
 
-/* Styling for individual match items */
+
 .match {
   align-self:  flex;
   align-items: center;
   padding: 10px 15px;
   border-radius: 8px;
-  background-color: #f5f5f5; /* Light gray background */
-  border: 1px solid #ddd; /* Subtle border for separation */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer; /* Pointer cursor to indicate clickability */
+  cursor: pointer;
 }
 
-/* Hover effect to give feedback */
+
 .match:hover {
-  background-color: #e6f7ff; /* Slight blue tint on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+  background-color: #e6f7ff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+
+/* Styling for smaller devices */
 
 @media only screen and (max-width: 600px) {
   html, body {
-      font-size: 14px; /* Reduce base font size */
+      font-size: 14px;
   }
 
   .nav-wrapper .brand-logo {
-      font-size: 20px; /* Adjust brand logo size */
+      font-size: 20px;
       padding-left: 5px;
       left: 0;
       right: auto;
@@ -100,79 +110,81 @@ p {
   }
 
   .nav-wrapper ul.right li a {
-      font-size: 14px; /* Adjust navigation link font size */
+      font-size: 14px;
       padding-right: 10px;
       flex-wrap: wrap;
   }
 
   .container {
-      padding: 0 10px; /* Reduce padding in container */
+      padding: 0 10px;
   }
 
   .card-title {
-      font-size: 18px; /* Adjust card title font size */
+      font-size: 18px;
   }
 
   .card-content p, .card-content span {
-      font-size: 14px; /* Adjust content font size */
+      font-size: 14px;
   }
 
   .input-field input, .input-field textarea {
-      font-size: 14px; /* Adjust input fields font size */
+      font-size: 14px;
   }
 
   .btn {
-      padding: 0 10px; /* Adjust button padding */
-      font-size: 14px; /* Adjust button font size */
+      padding: 0 10px;
+      font-size: 14px;
   }
 
   .btn-large {
-      padding: 0 15px; /* Adjust large button padding */
-      font-size: 16px; /* Adjust large button font size */
+      padding: 0 15px;
+      font-size: 16px;
   }
 
   .button-row a.btn-floating {
-      margin: 5px; /* Add margin between floating buttons */
-      height: 40px; /* Reduce size of floating buttons */
+      margin: 5px;
+      height: 40px;
       width: 40px;
       line-height: 40px;
   }
 
   #match-modal {
-    min-height: 300px; /* Ensure the modal is tall enough */
+    min-height: 300px;
     align-self: flex;
     flex-direction: column;
     justify-content: center;
     }
 
   .modal-footer .btn {
-    width: 80%; /* Set a fixed width suitable for smaller screens */
-    margin: 5px auto; /* Center the buttons with auto margins */
-    display: block; /* Ensure buttons are block elements for full width */
+    width: 80%;
+    margin: 5px auto;
+    display: block;
   }
 
   .chat-history {
-      height: calc(100vh - 250px); /* Adjust chat history height */
-      overflow-y: auto; /* Enable scrolling */
+      height: calc(100vh - 250px);
+      overflow-y: auto;
   }
 
   #chat-message {
-      font-size: 14px; /* Adjust chat message input font size */
+      font-size: 14px;
   }
 
   #message-filter {
-      font-size: 14px; /* Adjust filter input font size */
+      font-size: 14px;
   }
 
   #matches-list li {
-      padding: 5px 10px; /* Adjust padding for match list items */
-      font-size: 14px; /* Adjust match list items font size */
+      padding: 5px 10px;
+      font-size: 14px;
   }
 
   .btn.waves-effect {
-      margin-bottom: 10px; /* Add margin to buttons */
+      margin-bottom: 10px;
   }
 }
+
+/* Animating cards */
 
 .swipe-right {
   transform: translateX(-100%);
