@@ -27,15 +27,31 @@ html
                                 span.card-title(id="name")
                                 p(id="register-date")
                                 p(id="bio")
+                                button.btn.waves-effect.waves-light(id="edit-profile-button") Edit Profile
+                            .card-action.hide(id="edit-form-section")
+                                form(id="edit-profile-form")
+                                    .input-field
+                                        input#edit-firstname(type="text" name="firstname" required)
+                                        label(for="edit-firstname") First Name
+                                    .input-field
+                                        input#edit-lastname(type="text" name="lastname" required)
+                                        label(for="edit-lastname") Last Name
+                                    .input-field
+                                        textarea#edit-bio(name="bio" class="materialize-textarea")
+                                        label(for="edit-bio") Bio
+                                    .row
+                                        .col.s6
+                                            button.btn.waves-effect.waves-light(type="submit" id="submit-edit") Save
+                                        .col.s6
+                                            button.btn.red.waves-effect.waves-light(type="button" id="cancel-edit") Cancel
                 a(href="/userhome") Back to home
-
             .row.center-align
                 button#start-browsing.btn-large.waves-effect.waves-light.blue Start browsing profiles
 
             #browsing.hide
                 .card
                     .card-content.center-align
-                        span.card-title Browse Profiles
+                        span.card-title#random-profile Browse Profiles
                         h3#random-profile-name
                         p#random-profile-bio
                         div.button-row
@@ -44,6 +60,18 @@ html
                             a.btn-floating.btn-large.waves-effect.waves-light.red(id="dislike-button")
                                 i.material-icons thumb_down
 
+            .section(id="matches-section")
+                h5 Your Matches
+                ul#matches-list
+                    // Matches will be populated here
+            .section.hide(id="chat-section")
+                h5#chat-with Chat with: 
+                div#chat-history.chat-history
+                    // Chat messages will be populated here
+                form(id="send-message-form")
+                    input#chat-message(type="text" placeholder="Type a message...")
+                    button.btn.waves-effect.waves-light(type="submit") Send
+
         script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
         script.
             document.addEventListener('DOMContentLoaded', function() {
@@ -51,3 +79,4 @@ html
                 var instances = M.Sidenav.init(elems);
             });
         script(src="/javascripts/userhome.js")
+        script(src="/javascripts/chat.js")

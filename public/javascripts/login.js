@@ -12,39 +12,26 @@ function initializeCodeLogin() {
 }
 
 
-function onSubmit(event) {
+async function onSubmit(event) {
     event.preventDefault();
     // Get data from the login form
     const formData = new FormData(document.getElementById("form-data"));
 
-    // Debugging formData entries
-    for (let pair of formData.entries()) {
-        console.log(pair[0]+ ': ' + pair[1]); 
-    }
-
     // Send login data to server for authentication
-    fetch("/api/login", {
+    res = await fetch("/api/login", {
         method: "POST",
         body: formData,
         redirect: "follow"  // Indicate that we want to follow redirects
     })
-    .then(response => {
-        if (response.redirected) {
-            // If redirected, manually update the window location because fetch doesn't support automatic redirects :) 
-            window.location.href = response.url;
-        } else {
-            return response.json();
-        }
-    })
-    .then(data => {
-        if (data) {
-            console.log(data.message);
-            // Handle other cases if needed
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    if (res.redirected) {
+        // If redirected, manually update the window location because fetch doesn't support automatic redirects :) 
+        window.location.href = res.url;
+    } else {
+        // If no redirect, display message on page under login stuff
+        res = await res.json();
+        console.log(res);
+        document.getElementById("auth-section").innerText = res.message;
+    }
 }
 
 

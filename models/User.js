@@ -8,8 +8,11 @@ let userSchema = new Schema({
     email: {type: String, unique: true},
     password: {type: String},
     registerDate: {type: String},
-    bio: {type: String}
+    bio: {type: String},
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 
 });
 
-module.exports = mongoose.model("user", userSchema)
+module.exports = mongoose.model("User", userSchema)
