@@ -99,4 +99,7 @@ As this project was done for a school course, here is the list of features I cla
 - Clicking on username to see user profile with user info - 2p
 - Chat shows timestamp - 1p
 
+### Additional points
+- Providing scripts to generate users into the database - 1-2p
+
  ## Total - 35 points
